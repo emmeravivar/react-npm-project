@@ -1,0 +1,13 @@
+.add-car {
+    padding: 1rem;
+    justify-content: center;
+
+}
+
+.add-car > form > div{
+    margin-top: 1rem;
+}
+
+label {
+    display: block;
+}
