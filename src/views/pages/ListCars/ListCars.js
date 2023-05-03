@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import './list-cars.css';
 
-    const data = [
+//Datos
+const data = [
       {
         id:1,
               marca: "Toyota",
@@ -24,7 +25,7 @@ import './list-cars.css';
               foto: "https://www.gpas-cache.ford.com/guid/35b0f34d-0ff8-3e75-b278-3a38cb39a63d.png"
             }
           ];
-
+//Componente
 const ListCars = () => {
     const [carList, setCarList] = useState(data)
 
@@ -37,7 +38,11 @@ const ListCars = () => {
         setCarList(newList);
         }
 
+  const handleSortDesList = (id) => {
+    const newList = [...carList].sort((a, b) => (a[id] > b[id] ? 1 : -1));
+    setCarList(newList);
 
+  }
         
         const handleViewCar = () => console.log('Aquí leemos el id que luego con router pasaremos por query params')
 
@@ -45,13 +50,18 @@ const ListCars = () => {
   return (
     <div className='list-cars'>
       <h2>Listado de Coches en Venta</h2>
+
+      <div className='button-order' onClick={() => handleSortDesList()}>
+          <span>Ordenar descendente</span>
+
+      </div>
       
       {
         /* Esto es código JS porque está dentro de los paréntesis */
         // Uitlizaré la función map
         carList.map(
           (item, i) =>  
-            <div className='car-item row d-flex align-items-center' key={i} onClick={() => handleRemoveCar(item.id)}>
+            <div className='car-item row d-flex align-items-center' key={i} >
               <div className='col-1 item-id'>
                 {item.id}
               </div>
@@ -68,7 +78,7 @@ const ListCars = () => {
                 {item.anio}
               </div>
               <div className='col-2'>
-                <a href="#">Eliminar</a>
+                <a href="#" onClick={() => handleRemoveCar(item.id)}>Eliminar</a>
               </div>
               <div className='col-2'>
                 <a href="#" onClick={handleViewCar}>Ver</a>
