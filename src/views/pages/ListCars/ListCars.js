@@ -9,7 +9,6 @@ const ListCars = ({ cars }) => {
   useEffect(() => {
     console.log('El componente ha sido recargado...')
     if (cars.length) {
-      console.log('tiene algo')
       setCarList([...carList, cars[0]])
     }
   }, [cars]);

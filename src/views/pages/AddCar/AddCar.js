@@ -27,7 +27,20 @@ const AddCar = ({ cars, setCars }) => {
 
   };
 
-
+// Manejar el file
+  const handleImageUpload = e => {
+    const { name, value } = e.target
+    const file = e.target.files[0];
+    console.log(file, name, value)
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setFormCar( reader.result);
+    };
+  };
+  
+  
+  
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -68,13 +81,13 @@ const AddCar = ({ cars, setCars }) => {
           </div>
         <div>
           <label>Año</label>
-          <input type="date" id="anio" name="anio" value={formCar.anio}
+          <input type="number" id="anio" name="anio" value={formCar.anio}
             onChange={handleChange} placeholder='Año' />
         </div>
         <div>
           <label>Adjuntar foto</label>
           <input type="file" id="name" name="foto" value={formCar.foto}
-            onChange={handleChange}/>
+            onChange={handleImageUpload}/>
         </div>
         <div>
           <button type="submit" className='btn btn-secondary'>Enviar</button>
