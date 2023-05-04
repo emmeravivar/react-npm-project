@@ -3,12 +3,22 @@ import './add-car.css';
 
 const AddCar = ({ cars, setCars }) => {
   
+
+
+  const idGenerator = () => {
+    const random = Math.random().toString(36).substring(2)
+    const date = Date.now().toString(36)
+
+    return date + random
+  }
+
   //Crear los states
   const [formCar, setFormCar] = useState({
     modelo: '',
     marca: '',
     anio: '',
-    foto: ''
+    foto: '',
+    id: idGenerator()
   })
 
 
@@ -27,17 +37,7 @@ const AddCar = ({ cars, setCars }) => {
 
   };
 
-// Manejar el file
-  const handleImageUpload = e => {
-    const { name, value } = e.target
-    const file = e.target.files[0];
-    console.log(file, name, value)
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setFormCar( reader.result);
-    };
-  };
+
   
   
   
@@ -87,7 +87,7 @@ const AddCar = ({ cars, setCars }) => {
         <div>
           <label>Adjuntar foto</label>
           <input type="file" id="name" name="foto" value={formCar.foto}
-            onChange={handleImageUpload}/>
+            onChange={handleChange}/>
         </div>
         <div>
           <button type="submit" className='btn btn-secondary'>Enviar</button>
