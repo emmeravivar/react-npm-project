@@ -1,59 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './list-cars.css';
+import coches from './data'
 
-//Datos
-const data = [
-      {
-        id:1,
-              marca: "Toyota",
-              modelo: "Corolla",
-              anio: 2020,
-              foto: "https://upload.wikimedia.org/wikipedia/commons/c/c2/2021_Toyota_Corolla_SE_Hatchback.jpg"
-            },
-      {
-              id:2,
-              marca: "Honda",
-              modelo: "Civic",
-              anio: 2019,
-              foto: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/199431-honda-muestra-su-renovado-civic-type-r-en-el-tokyo-auto-salon-2020-1578660923.jpg"
-            },
-            {
-              id:3,
-              marca: "Ford",
-              modelo: "Mustang",
-              anio: 2021,
-              foto: "https://www.gpas-cache.ford.com/guid/35b0f34d-0ff8-3e75-b278-3a38cb39a63d.png"
-            }
-          ];
+
 //Componente
-const ListCars = () => {
-    const [carList, setCarList] = useState(data)
+const ListCars = ({ cars }) => {
 
+  useEffect(() => {
+    console.log('El componente ha sido recargado...')
+    if (cars.length) {
+      console.log('tiene algo')
+      setCarList([...carList, cars[0]])
+    }
+  }, [cars]);
 
-    // 3 de 1 => capturar los eventos
+  
+  const [carList, setCarList] = useState(coches)
+  console.log(carList)
+
+  // 3 de 1 => capturar los eventos
   const handleRemoveCar = (id) => {
-        console.log(id)
-        const newList = carList.filter(item => item.id !== id )
-          console.log(newList)
-        setCarList(newList);
-        }
-
-  const handleSortDesList = (id) => {
-    const newList = [...carList].sort((a, b) => (a[id] > b[id] ? 1 : -1));
+    const newList = carList.filter(item => item.id !== id )
     setCarList(newList);
+    }
 
+  const handleSortDesList = (marca) => {
+    const newList = [...carList].sort((a, b) => (a[marca] > b[marca] ? 1 : -1));
+    setCarList(newList);
   }
         
-        const handleViewCar = () => console.log('Aquí leemos el id que luego con router pasaremos por query params')
+  const handleViewCar = () => console.log('Aquí leemos el id que luego con router pasaremos por query params')
 
   // 2 Parte => Pintamos el componente (render al DOM)
   return (
     <div className='list-cars'>
       <h2>Listado de Coches en Venta</h2>
 
-      <div className='button-order' onClick={() => handleSortDesList()}>
-          <span>Ordenar descendente</span>
-
+      <div className='button-order'>
+          <span onClick={() => handleSortDesList()}>- ordenar + </span>
       </div>
       
       {

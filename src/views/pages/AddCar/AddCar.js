@@ -1,25 +1,80 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './add-car.css';
 
-const AddCar = () => {
+const AddCar = ({ cars, setCars }) => {
+  
+  //Crear los states
+  const [formCar, setFormCar] = useState({
+    modelo: '',
+    marca: '',
+    anio: '',
+    foto: ''
+  })
+
+
+
+  //Capturar el evento change => para almacenar su valor
+  const handleChange = e => {
+
+    //Capturar el value y el name del input
+    const { name, value } = e.target
+
+    //Crear una copia del objeto formCar y con el name (modelo) su valor será el de input
+    const valueFormCar = { ...formCar, [name]:value} //[name]:value
+
+    //Modificamos el state
+    setFormCar(valueFormCar)
+
+  };
+
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    // Aquí agregamos las lógica => llamamos al useState de App mediante props y lo modificamos con nuestras variables
+    setCars([...cars, formCar])
+    
+    //Reniciar el formulario ( limpiar los campos del value )
+    setFormCar({
+      modelo: '',
+      marca: '',
+      anio: '',
+      foto: ''
+    });
+  };
+
+
+
+
+
   return (
     <div className='add-car'>
-      <form>
+      <h2>Añadir un Coche (Carro)</h2>
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Modelo</label>
-          <input type="text" name="modelo" value="" placeholder='Modelo' />  
+          <input
+            type="text"
+            id="modelo"
+            name="modelo"
+            placeholder='Modelo de coche'
+            value={formCar.modelo}
+            onChange={handleChange} />
         </div>
         <div>
           <label>Marca</label>
-          <input type="text" name="marca" value="" placeholder='Marca' />
+          <input type="text" id="marca" name="marca" value={formCar.marca}
+            onChange={handleChange} placeholder='Marca' />
           </div>
         <div>
           <label>Año</label>
-          <input type="date" name="ano" value="" placeholder='Año' />
+          <input type="date" id="anio" name="anio" value={formCar.anio}
+            onChange={handleChange} placeholder='Año' />
         </div>
         <div>
           <label>Adjuntar foto</label>
-          <input type="file" name="foto" />
+          <input type="file" id="name" name="foto" value={formCar.foto}
+            onChange={handleChange}/>
         </div>
         <div>
           <button type="submit" className='btn btn-secondary'>Enviar</button>

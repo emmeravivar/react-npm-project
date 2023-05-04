@@ -26,19 +26,12 @@
 .car-item a:hover {
     background-color: #026773;
 }
-.button-order {
-    margin: 1rem 0;
-    text-align: center;
-}
 .button-order > span {
-    text-align: center;
-    padding: 1rem;
-    display: block;
     color: #026873bc;
 }
 
 .button-order>span:hover {
-   cursor: pointer;
-color: #026873bc;
-text-decoration: underline;
+    cursor: pointer;
+    color: #026873;
+    text-decoration: underline;
 }
