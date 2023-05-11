@@ -15,7 +15,6 @@ const ListCars = ({ cars }) => {
 
 
   const [carList, setCarList] = useState(coches)
-  console.log(carList)
 
   // 3 de 1 => capturar los eventos
   const handleRemoveCar = (id) => {

@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import './add-car.css';
 
 const AddCar = ({ cars, setCars }) => {
-  
 
-
+  //Id generator
   const idGenerator = () => {
     const random = Math.random().toString(36).substring(2)
     const date = Date.now().toString(36)
 
     return date + random
   }
+
+
 
   //Crear los states
   const [formCar, setFormCar] = useState({
@@ -21,7 +22,8 @@ const AddCar = ({ cars, setCars }) => {
     id: idGenerator()
   })
 
-
+  //Creamos el state para mostrar el error 
+  const [error, setError] = useState(false)
 
   //Capturar el evento change => para almacenar su valor
   const handleChange = e => {
@@ -37,14 +39,20 @@ const AddCar = ({ cars, setCars }) => {
 
   };
 
-
-  
-  
   
   const handleSubmit = e => {
     e.preventDefault();
+    
+    const { modelo, marca} = formCar
+    //Validación del formulario para todos los campos obligatorios
+    if ([modelo, marca, anio].includes('')) {
+      console.log('Hay al menos un campo vacio')
+      setError(true)
+    } else {
+      console.log('Están todos llenos')
+    }
 
-    // Aquí agregamos las lógica => llamamos al useState de App mediante props y lo modificamos con nuestras variables
+    // Aquí agregamos la lógica => llamamos al useState de App mediante props y lo modificamos con nuestras variables
     setCars([...cars, formCar])
     
     //Reniciar el formulario ( limpiar los campos del value )
@@ -55,10 +63,6 @@ const AddCar = ({ cars, setCars }) => {
       foto: ''
     });
   };
-
-
-
-
 
   return (
     <div className='add-car'>
